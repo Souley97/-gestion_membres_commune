@@ -4,11 +4,12 @@ require_once 'DB.php';
 class MembreDB
 {
     private $connexion;
+    private $table_name = "membres_commune";
 
     private $id;
 
 
-    private $matricule;
+    public $matricule;
     public $nom;
     public $prenom;
     public $tranche_age;
@@ -38,6 +39,27 @@ class MembreDB
             die("Erreur: Impossible d'afficher les membres de la commune : " . $e->getMessage());
         }
     }
-    // Méthode pour récupérer les informations d'un membre par son ID
+    public function createMembre($matricule, $nom, $prenom, $tranche_age, $sexe, $situation_matrimoniale, $statut)
+    {
+
+        try {
+            $query = "INSERT INTO " . $this->table_name . " (matricule, nom, prenom, tranche_age, sexe, situation_matrimoniale, statut) VALUES (:matricule, :nom, :prenom, :tranche_age, :sexe, :situation_matrimoniale, :statut)";
+            $stmt = $this->connexion->prepare($query);
+
+            $stmt->bindParam(':matricule', $matricule);
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':tranche_age', $tranche_age);
+            $stmt->bindParam(':sexe', $sexe);
+            $stmt->bindParam(':situation_matrimoniale', $situation_matrimoniale);
+            $stmt->bindParam(':statut', $statut);
+
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs
+            return false;
+        }
+    }
 
 }
