@@ -15,7 +15,10 @@ include 'models/DB.php';
 </head>
 
 <body>
+    <?php
+    include 'views/membres/index.php';
 
+    ?>
 </body>
 
 </html>
