@@ -62,4 +62,69 @@ class MembreDB
         }
     }
 
+    public function updateMembre($id, $matricule, $nom, $prenom, $tranche_age, $sexe, $situation_matrimoniale, $statut)
+    {
+        try {
+            $query = "UPDATE " . $this->table_name . " SET matricule = :matricule, nom = :nom, prenom = :prenom, tranche_age = :tranche_age, sexe = :sexe, situation_matrimoniale = :situation_matrimoniale, statut = :statut WHERE id = :id";
+            $stmt = $this->connexion->prepare($query);
+
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':matricule', $matricule);
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':tranche_age', $tranche_age);
+            $stmt->bindParam(':sexe', $sexe);
+            $stmt->bindParam(':situation_matrimoniale', $situation_matrimoniale);
+            $stmt->bindParam(':statut', $statut);
+
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs
+            return false;
+        }
+    }
+
+    // Méthode pour récupérer les informations d'un membre par son ID
+    public function getMembreById($id)
+    {
+        try {
+            $query = "SELECT * FROM membres_commune WHERE id = ?";
+            $stmt = $this->connexion->prepare($query);
+            $stmt->execute([$id]);
+            $membre = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $membre;
+        } catch (PDOException $e) {
+            // Gérer les erreurs
+            die("Erreur lors de la récupération des informations du membre: " . $e->getMessage());
+        }
+    }
+    public function deleteMembre($id)
+    {
+        try {
+            // Requête SQL pour supprimer le membre avec l'ID spécifié
+            $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+
+            // Préparation de la requête
+            $stmt = $this->connexion->prepare($query);
+
+            // Liaison de la valeur de l'ID avec le paramètre de la requête
+            $stmt->bindParam('id', $id);
+
+            // Exécution de la requête
+            if ($stmt->execute()) {
+                // La suppression a réussi
+                return true;
+            } else {
+                // La suppression a échoué
+                return false;
+            }
+        } catch (PDOException $e) {
+            // Gérer les erreurs de base de données
+            echo "Erreur lors de la suppression du membre: " . $e->getMessage();
+            return false;
+        }
+    }
+
+
 }

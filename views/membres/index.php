@@ -10,12 +10,46 @@
 </head>
 
 <body>
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <!-- Logo ou titre de votre site -->
+                <a class="navbar-brand" href="#">Logo</a>
+
+                <!-- Contenu de la barre de recherche -->
+                <form class="form-inline my-2 my-lg-0 mr-auto">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher..." aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>
+
+                <!-- Profil utilisateur -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> Utilisateur
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Mon profil</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Déconnexion</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
     <div class="container mt-5">
         <!--formulaire  Ajouter un membre -->
         <?php
         require_once 'create.php';
         ?>
-
+        <?php
+        // require_once 'update.php';
+        ?>
+        <!-- Barre de navigation -->
 
     </div>
 
@@ -24,7 +58,10 @@
         <!-- Ajout d'un bouton d'ajout stylisé avec Bootstrap -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterMembreModal">
             Ajouter un membre
+        </button> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modifierMembreModal">
+            Modifier un membre
         </button>
+
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -37,6 +74,7 @@
                     <th scope="col">Situation matrimoniale</th>
                     <th scope="col">Statut</th>
                     <th scope="col">Date d'enregistrement</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -73,6 +111,19 @@
                         </td>
                         <td>
                             <?= $membre['date_enregistrement'] ?>
+                        </td>
+                        <td>
+                            <!-- Bouton de modification -->
+                            <a href="./views/membres/update.php?id=<?= $membre['id'] ?>"
+                                class="btn btn-primary btn-sm mr-2">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <!-- Bouton de suppression -->
+                            <a href="./controllers/membreController.php?id=<?= $membre['id'] ?>"
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce membre ?')">
+                                <i class="fas fa-trash-alt"></i> Supprimer
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
