@@ -125,6 +125,18 @@ class MembreDB
             return false;
         }
     }
+    public function getMembresByStatut($statut)
+    {
+        try {
+            $query = "SELECT * FROM " . $this->table_name . " WHERE statut = ?";
+            $stmt = $this->connexion->prepare($query);
+            $stmt->execute([$statut]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Gérer les erreurs
+            die("Erreur lors de la récupération des membres par statut: " . $e->getMessage());
+        }
+    }
 
 
 }

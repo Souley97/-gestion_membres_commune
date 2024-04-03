@@ -1,4 +1,15 @@
+<?php
+session_start(); // Vérifier si l'agent est connecté 
+if (!isset($_SESSION["id"])) {
+    header("Location: login.php");
+    exit();
+} // Afficher le nom de l'agent 
+$agent_nom = $_SESSION["nom"];
+$agent_prenom = $_SESSION["prenom"]; ?>
+
 <!DOCTYPE html>
+
+
 <html lang="en">
 
 <head>
@@ -28,18 +39,35 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user"></i> Utilisateur
+                            <i class="fas fa-user"></i>
+                            <?php echo $agent_nom; ?>
+                            <?php echo $agent_prenom; ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Mon profil</a>
+                            <a class="dropdown-item" href="views/agents/index.php">Mon profil</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Déconnexion</a>
+                            <a class="dropdown-item" href="./views/agents/logout.php">Déconnexion</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
+    <!-- <li class=" nav-item">
+        <a class="nav-link" href="index.php?filter=chef_de_quartier">
+            <i class="fas fa-user-tie"></i> Filtrer par Chef de quartier
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="index.php?filter=membre_civile">
+            <i class="fas fa-users"></i> Filtrer par Membres Civiles
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="index.php?filter=badian_gokh">
+            <i class="fas fa-landmark"></i> Filtrer par Badian Gokh
+        </a>
+    </li> -->
 
     <div class="container mt-5">
         <!--formulaire  Ajouter un membre -->
@@ -56,11 +84,10 @@
     <div class="container">
         <h1 class="mt-5">Liste des membres de la commune</h1>
         <!-- Ajout d'un bouton d'ajout stylisé avec Bootstrap -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterMembreModal">
-            Ajouter un membre
-        </button> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modifierMembreModal">
-            Modifier un membre
-        </button>
+        <div class="mbézèlj ?Location-5"> <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#ajouterMembreModal">
+                Ajouter un membre
+            </button></div>
 
         <table class="table">
             <thead class="thead-dark">

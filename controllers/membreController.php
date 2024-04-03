@@ -64,7 +64,37 @@ if (isset($_GET['id'])) {
     exit();
 }
 
+if (isset($_GET['filter'])) {
+    $filter = $_GET['filter'];
 
+    // Créer une instance de MembreDB avec la connexion à la base de données
+    $membreDB = new MembreDB($connexion);
+
+    // Récupérer les membres correspondants selon le filtre
+    switch ($filter) {
+        case 'chef_de_quartier':
+            $membres = $membreDB->getMembresByStatut('Chef de quartier');
+            break;
+        case 'membre_civile':
+            // $membres = $membreDB->getMembresByStatut('Civile');
+            break;
+        case 'badian_gokh':
+            $membres = $membreDB->getMembresByStatut('Badian Gokh');
+            break;
+        default:
+            $membres = $membreDB->readAllMembres(); // Aucun filtre, récupérer tous les membres
+            break;
+    }
+} else {
+    // Aucun filtre, récupérer tous les membres
+    $membreDB = new MembreDB($connexion);
+    $membres = $membreDB->readAllMembres();
+}
+
+// Afficher les membres récupérés
+foreach ($membres as $membre) {
+    // Affichage des détails du membre...
+}
 // Vérifier si le formulaire a été soumis
 
 

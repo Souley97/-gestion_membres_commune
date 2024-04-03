@@ -1,3 +1,11 @@
+<?php
+session_start(); // Vérifier si l'agent est connecté 
+if (!isset($_SESSION["id"])) {
+    header("Location: login.php");
+    exit();
+} // Afficher le nom de l'agent 
+$agent_nom = $_SESSION["nom"];
+$agent_prenom = $_SESSION["prenom"]; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,18 +19,47 @@
 
 </head>
 
-<body><!-- Modal de modification -->
-    <!-- <div class="modal fade" id="modifierMembreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content"> -->
-    <div class="modal-header">
+<body>
+    <!-- Profil utilisateur -->
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <!-- Logo ou titre de votre site -->
+                <a class="navbar-brand" href="#">Logo</a>
+
+                <!-- Contenu de la barre de recherche -->
+                <form class="form-inline my-2 my-lg-0 mr-auto">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher..." aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>
+
+                <!-- Profil utilisateur -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                            <?php echo $agent_nom; ?>
+                            <?php echo $agent_prenom; ?>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="views/agents/index.php">Mon profil</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="../../views/agents/logout.php">Déconnexion</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container ">
         <h5 class="modal-title" id="exampleModalLabel">Modifier un membre</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body ">
+    <div class="container w-12 ">
 
         <?php
         require_once '../../models/MembreDB.php';
@@ -84,7 +121,7 @@
                     <div class="form-group">
                         <label for="statut">Statut:</label>
                         <select class="form-control" id="statut" name="statut">
-                        <option value="Civile" <?= $membre['statut'] == 'Civile' ? 'selected' : '' ?>>Civile
+                            <option value="Civile" <?= $membre['statut'] == 'Civile' ? 'selected' : '' ?>>Civile
                             </option>
                             <option value="Chef de quartier" <?= $membre['statut'] == 'Chef de quartier' ? 'selected' : '' ?>>
                                 Chef
@@ -110,7 +147,10 @@
     <!-- </div>
     </div>
     </div> -->
-
+    <!-- Intégration de Bootstrap JS (optionnel si vous n'utilisez pas de fonctionnalités JavaScript de Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
