@@ -18,7 +18,7 @@ if (isset($_POST['addAgent'])) {
     // Appeler la méthode pour créer un nouvel agent en utilisant les données du formulaire
     if ($agent_db->createAgent($matricule, $nom, $prenom, $email, $telephone, $password)) {
         // Redirection vers une page de succès ou affichage d'un message de succès
-        header("Location: ../index.php");
+        header("Location: ../views/membres/index.php");
         exit();
     } else {
         // Gérer les erreurs d'insertion de l'agent
@@ -43,10 +43,10 @@ if (isset($_POST['login'])) {
             $_SESSION["id"] = $agent["id"];
             $_SESSION["nom"] = $agent["nom"];
             $_SESSION["prenom"] = $agent["prenom"];
-            header("Location: ../index.php"); // Rediriger vers la page du tableau de bord de l'agent
+            header("Location: ../views/membres/index.php"); // Rediriger vers la page du tableau de bord de l'agent
             exit();
         } else {
-            header("Location: ../index.php"); // Rediriger vers la page du tableau de bord de l'agent
+            header("Location: ../views/membres/index.php"); // Rediriger vers la page du tableau de bord de l'agent
 
         }
     } else {

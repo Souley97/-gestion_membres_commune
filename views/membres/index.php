@@ -1,5 +1,5 @@
 <?php
-include 'models/DB.php';
+include '../../models/DB.php';
 
 
 session_start(); // Vérifier si l'agent est connecté 
@@ -47,9 +47,9 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                             <?php echo $agent_prenom; ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="views/agents/index.php">Mon profil</a>
+                            <a class="dropdown-item" href="../../views/agents/index.php">Mon profil</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="./views/agents/logout.php">Déconnexion</a>
+                            <a class="dropdown-item" href="../../views/agents/logout.php">Déconnexion</a>
                         </div>
                     </li>
                 </ul>
@@ -109,7 +109,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
             </thead>
             <tbody>
                 <?php
-                include './models/MembreDB.php';
+                include '../../models/MembreDB.php';
                 $results = new MembreDB($connexion);
                 $membres = $results->readAllMembres();
 
@@ -144,12 +144,12 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                         </td>
                         <td>
                             <!-- Bouton de modification -->
-                            <a href="./views/membres/update.php?id=<?= $membre['id'] ?>"
+                            <a href="../../views/membres/update.php?id=<?= $membre['id'] ?>"
                                 class="btn btn-primary btn-sm mr-2">
                                 <i class="fas fa-edit"></i> Modifier
                             </a>
                             <!-- Bouton de suppression -->
-                            <a href="./controllers/membreController.php?id=<?= $membre['id'] ?>"
+                            <a href="../../controllers/membreController.php?id=<?= $membre['id'] ?>"
                                 class="btn btn-danger btn-sm"
                                 onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce membre ?')">
                                 <i class="fas fa-trash-alt"></i> Supprimer

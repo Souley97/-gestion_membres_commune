@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="./controllers/membreController.php" method="POST">
+                <form action="../../controllers/membreController.php" method="POST">
                     <div class="form-group">
                         <label for="matricule">Matricule:</label>
                         <input type="text" class="form-control" id="matricule" name="matricule" required>

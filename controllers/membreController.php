@@ -13,7 +13,7 @@ if (isset($_POST["addMembre"])) {
     // Appeler la méthode pour créer un nouveau membre en utilisant les données du formulaire
     if ($membre->createMembre($matricule, $nom, $prenom, $tranche_age, $sexe, $situation_matrimoniale, $statut)) {
         // Rediriger vers une page de succès ou afficher un message de succès
-        header("Location: ../index.php");
+        header("Location: ../views/membres/index.php");
         exit();
     } else {
         // Gérer les erreurs
@@ -31,7 +31,7 @@ if (isset($_POST["editMembre"])) {
     // Appeler la méthode pour mettre à jour les informations du membre en utilisant les données du formulaire
     if ($membre->updateMembre($id, $matricule, $nom, $prenom, $tranche_age, $sexe, $situation_matrimoniale, $statut)) {
         // Rediriger vers une page de succès ou afficher un message de succès
-        header("Location: ../index.php");
+        header("Location: ../views/membres/index.php");
         exit();
     } else {
         // Gérer les erreurs
@@ -51,7 +51,7 @@ if (isset($_GET['id'])) {
     // Appeler la méthode de suppression du membre avec l'ID spécifié
     if ($membreDB->deleteMembre($id)) {
         // Rediriger vers la page principale avec un message de succès
-        header('Location: ../index.php');
+        header('Location: ../views/membres/index.php');
         exit();
     } else {
         // Rediriger vers la page principale avec un message d'erreur
@@ -60,7 +60,7 @@ if (isset($_GET['id'])) {
     }
 } else {
     // Rediriger vers la page principale si l'ID n'est pas défini dans l'URL
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit();
 }
 
