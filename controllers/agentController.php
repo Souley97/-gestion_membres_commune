@@ -43,10 +43,11 @@ if (isset($_POST['login'])) {
             $_SESSION["id"] = $agent["id"];
             $_SESSION["nom"] = $agent["nom"];
             $_SESSION["prenom"] = $agent["prenom"];
-            header("Location: ../views/membres/index.php"); // Rediriger vers la page du tableau de bord de l'agent
+            header("Location: ../index.php"); // Rediriger vers la page du tableau de bord de l'agent
             exit();
         } else {
-            $error_message = "Email ou mot de passe incorrect.";
+            header("Location: ../index.php"); // Rediriger vers la page du tableau de bord de l'agent
+
         }
     } else {
         $error_message = "Veuillez remplir tous les champs.";

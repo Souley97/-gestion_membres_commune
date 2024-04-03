@@ -99,7 +99,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                             required>
                     </div>
                     <div class="form-group">
-                        <label for="tranche_age">Tranche d'âge:</label>
+                        <label for="tranche_age">âge:</label>
                         <input type="text" class="form-control" id="tranche_age" name="tranche_age"
                             value="<?= $membre['tranche_age'] ?>">
                     </div>
@@ -111,7 +111,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="situation_matrimoniale">Situation matrimoniale:</label>
+                        <label for="situation_matrimoniale">Situation</label>
                         <select class="form-control" id="situation_matrimoniale" name="situation_matrimoniale">
                             <option value="Célibataire" <?= $membre['situation_matrimoniale'] == 'Célibataire' ? 'selected' : '' ?>>Célibataire</option>
                             <option value="Marié" <?= $membre['situation_matrimoniale'] == 'Marié' ? 'selected' : '' ?>>

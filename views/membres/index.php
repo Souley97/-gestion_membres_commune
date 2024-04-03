@@ -1,7 +1,10 @@
 <?php
+include 'models/DB.php';
+
+
 session_start(); // Vérifier si l'agent est connecté 
 if (!isset($_SESSION["id"])) {
-    header("Location: login.php");
+    header("Location: views/agents/login.php");
     exit();
 } // Afficher le nom de l'agent 
 $agent_nom = $_SESSION["nom"];
@@ -84,7 +87,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
     <div class="container">
         <h1 class="mt-5">Liste des membres de la commune</h1>
         <!-- Ajout d'un bouton d'ajout stylisé avec Bootstrap -->
-        <div class="mbézèlj ?Location-5"> <button type="button" class="btn btn-primary" data-toggle="modal"
+        <div class="mb-5"> <button type="button" class="btn btn-primary" data-toggle="modal"
                 data-target="#ajouterMembreModal">
                 Ajouter un membre
             </button></div>
@@ -96,11 +99,11 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                     <th scope="col">Matricule</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
-                    <th scope="col">Tranche d'âge</th>
+                    <th scope="col">âge</th>
                     <th scope="col">Sexe</th>
-                    <th scope="col">Situation matrimoniale</th>
+                    <th scope="col">Situation </th>
                     <th scope="col">Statut</th>
-                    <th scope="col">Date d'enregistrement</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>

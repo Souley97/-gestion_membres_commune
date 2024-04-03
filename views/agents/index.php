@@ -1,44 +1,60 @@
-<?php
-session_start();
-
-// Vérifier si l'agent est connecté
-if (!isset($_SESSION["id"])) {
-    header("Location: login.php");
-    exit();
-}
-
-// Afficher le nom de l'agent
-$agent_nom = $_SESSION["nom"];
-$agent_prenom = $_SESSION["prenom"];
-
-?>
-<?php echo $agent_nom; ?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de bord de l'agent</title>
-    <!-- Ajoutez ici vos liens CSS et scripts JavaScript -->
+    <title>Créer un nouvel agent</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Ajoutez ici le contenu de votre tableau de bord, par exemple : -->
-    <h1>Bienvenue sur votre tableau de bord,
-        <?php echo $agent_nom; ?>!
-    </h1>
-    <p>Voici les informations spécifiques à votre compte :</p>
-    <ul>
-        <!-- Afficher d'autres informations de l'agent si nécessaire -->
-    </ul>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        Créer un nouvel agent
+                    </div>
+                    <div class="card-body">
+                        <form action="../../controllers/agentController.php" method="POST">
+                            <div class="form-group">
+                                <label for="matricule">Matricule :</label>
+                                <input type="text" class="form-control" id="matricule" name="matricule" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nom">Nom :</label>
+                                <input type="text" class="form-control" id="nom" name="nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prenom">Prénom :</label>
+                                <input type="text" class="form-control" id="prenom" name="prenom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email :</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="telephone">Téléphone :</label>
+                                <input type="text" class="form-control" id="telephone" name="telephone">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe :</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
 
-    <!-- Ajouter un lien de déconnexion -->
-    <a href="logout.php">Déconnexion</a>
+                            <button type="submit" class="btn btn-primary" name="addAgent">Créer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Ajoutez ici d'autres fonctionnalités et éléments de votre tableau de bord -->
-
-    <!-- Intégration de Bootstrap JS (optionnel si vous utilisez Bootstrap) -->
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
