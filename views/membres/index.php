@@ -1,5 +1,5 @@
 <?php
-include '../../models/DB.php';
+include './models/DB.php';
 
 
 session_start(); // Vérifier si l'agent est connecté 
@@ -32,10 +32,10 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                 <a class="navbar-brand" href="#">Logo</a>
 
                 <!-- Contenu de la barre de recherche -->
-                <form class="form-inline my-2 my-lg-0 mr-auto">
+                <!-- <form class="form-inline my-2 my-lg-0 mr-auto">
                     <input class="form-control mr-sm-2" type="search" placeholder="Rechercher..." aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
-                </form>
+                </form> -->
 
                 <!-- Profil utilisateur -->
                 <ul class="navbar-nav ml-auto">
@@ -47,15 +47,19 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                             <?php echo $agent_prenom; ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="../../views/agents/index.php">Mon profil</a>
+                            <a class="dropdown-item" href="views/agents/index.php">Mon profil</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../../views/agents/logout.php">Déconnexion</a>
+                            <a class="dropdown-item" href="./views/agents/logout.php">Déconnexion</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
+    <!-- Button to Open Modal -->
+
+
+
     <!-- <li class=" nav-item">
         <a class="nav-link" href="index.php?filter=chef_de_quartier">
             <i class="fas fa-user-tie"></i> Filtrer par Chef de quartier
@@ -77,9 +81,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
         <?php
         require_once 'create.php';
         ?>
-        <?php
-        // require_once 'update.php';
-        ?>
+
         <!-- Barre de navigation -->
 
     </div>
@@ -87,10 +89,14 @@ $agent_prenom = $_SESSION["prenom"]; ?>
     <div class="container">
         <h1 class="mt-5">Liste des membres de la commune</h1>
         <!-- Ajout d'un bouton d'ajout stylisé avec Bootstrap -->
-        <div class="mb-5"> <button type="button" class="btn btn-primary" data-toggle="modal"
-                data-target="#ajouterMembreModal">
+        <div class="mb-3">
+            <button type="button" class="btn btn-primary mr-8" data-toggle="modal" data-target="#ajouterMembreModal">
                 Ajouter un membre
-            </button></div>
+            </button>
+            <button type="button" class="btn btn-primary left" data-toggle="modal" data-target="#myModal">
+                Civiles
+            </button>
+        </div>
 
         <table class="table">
             <thead class="thead-dark">
@@ -99,18 +105,21 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                     <th scope="col">Matricule</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
-                    <th scope="col">âge</th>
                     <th scope="col">Sexe</th>
-                    <th scope="col">Situation </th>
+                    <th scope="col">Situation Matrimoniale</th>
+                    <th scope="col">Etat</th>
+                    <th scope="col">Quartier</th>
+                    <th scope="col">Tranche d'âge</th>
                     <th scope="col">Statut</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Date d'enregistrement</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                include '../../models/MembreDB.php';
+                require_once '../../models/MembreDB.php';
                 $results = new MembreDB($connexion);
+                // $membres = $results->membresCivile();
                 $membres = $results->readAllMembres();
 
                 foreach ($membres as $membre): ?>
@@ -128,13 +137,19 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                             <?= $membre['prenom'] ?>
                         </td>
                         <td>
-                            <?= $membre['tranche_age'] ?>
-                        </td>
-                        <td>
                             <?= $membre['sexe'] ?>
                         </td>
                         <td>
                             <?= $membre['situation_matrimoniale'] ?>
+                        </td>
+                        <td>
+                            <?= $membre['etat'] ?>
+                        </td>
+                        <td>
+                            <?= $membre['quartier'] ?>
+                        </td>
+                        <td>
+                            <?= $membre['tranche_age'] ?>
                         </td>
                         <td>
                             <?= $membre['statut'] ?>
@@ -144,12 +159,13 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                         </td>
                         <td>
                             <!-- Bouton de modification -->
-                            <a href="../../views/membres/update.php?id=<?= $membre['id'] ?>"
-                                class="btn btn-primary btn-sm mr-2">
+                            <a href="update.php?id=<?= $membre['id'] ?>" class="btn btn-primary btn-sm mr-2">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a><a href="detail.php?id=<?= $membre['id'] ?>" class="btn btn-primary btn-sm mr-2">
                                 <i class="fas fa-edit"></i> Modifier
                             </a>
                             <!-- Bouton de suppression -->
-                            <a href="../../controllers/membreController.php?id=<?= $membre['id'] ?>"
+                            <a href="./controllers/membreController.php?id=<?= $membre['id'] ?>"
                                 class="btn btn-danger btn-sm"
                                 onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce membre ?')">
                                 <i class="fas fa-trash-alt"></i> Supprimer

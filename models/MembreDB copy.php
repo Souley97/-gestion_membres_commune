@@ -84,33 +84,51 @@ class MembreDB
     use ValidationTrait;
     // Méthode de la classe utilisant les fonctionnalités des traits
 
-    // public function addMembre($nom, $prenom, $lastMatricule)
-    public function addMembre($matricule, $nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)
+    public function addMembre($nom, $prenom, $lastMatricule)
+    // public function addMembre($nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idQuartier, $idAge, $idStatut, $matricule)
+    // public function addMembre($nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idQuartier, $idAge, $idStatut, $lastMatricule)
     {
         try {
+            $query = "SELECT matricule FROM membre ORDER BY id DESC LIMIT 1";
+            $stmt = $this->connexion->prepare($query);
+            $stmt->execute();
+            $lastMatricule = $stmt->fetchColumn();
+
+            // Utiliser les méthodes des traits pour générer le matricule et valider les données
+            $matricule = $this->generateMatricule($lastMatricule);
+            $isValid = $this->validateMembre($nom, $prenom);
+
+            // // Vérifier la validation des données
+            if (!$isValid) {
+                throw new Exception("Les informations du membre ne sont pas valides.");
+            }
+
             // Préparation de la requête SQL pour l'insertion d'un membre
-            $query = "INSERT INTO " . $this->table_name . " (matricule, nom, prenom, sexe, situation_matrimoniale, etat,idStatut, idQuartier, idAge  ) 
-                          VALUES (:matricule, :nom, :prenom, :sexe, :situation_matrimoniale, :etat, :idStatut, :idQuartier, :idAge)";
+            // $query = "INSERT INTO membres_commune (matricule, nom, prenom, sexe, situation_matrimoniale, etat, idQuartier, idAge, idStatut) 
+            //               VALUES (:matricule, :nom, :prenom, :sexe, :situation_matrimoniale, :etat, :idQuartier, :idAge, :idStatut)";
+            // $stmt = $this->connexion->prepare($query);
+            $query = "INSERT INTO membre (matricule, nom, prenom) 
+            VALUES (:matricule, :nom, :prenom)";
             $stmt = $this->connexion->prepare($query);
 
             // Liaison des valeurs aux paramètres de la requête
             $stmt->bindParam(':matricule', $matricule);
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':sexe', $sexe);
-            $stmt->bindParam(':situation_matrimoniale', $situation_matrimoniale);
-            $stmt->bindParam(':etat', $etat);
-            $stmt->bindParam(':idQuartier', $idQuartier);
-            $stmt->bindParam(':idAge', $idAge);
-            $stmt->bindParam(':idStatut', $idStatut);
+            // $stmt->bindParam(':sexe', $sexe);
+            // $stmt->bindParam(':situation_matrimoniale', $situation_matrimoniale);
+            // $stmt->bindParam(':etat', $etat);
+            // $stmt->bindParam(':idQuartier', $idQuartier);
+            // $stmt->bindParam(':idAge', $idAge);
+            // $stmt->bindParam(':idStatut', $idStatut);
 
             // Exécution de la requête d'insertion
             $stmt->execute();
 
             return true; // Succès de l'insertion
         } catch (PDOException $e) {
-            // Afficher un message d'erreur en cas d'échec de l'ajout du membre
-            die("Erreur : une erreur s'est produite lors de l'ajout du membre. " . $e->getMessage());
+            // Gérer les erreurs
+            return false;
         }
     }
 
@@ -232,29 +250,5 @@ class MembreDB
         }
     }
 
-    public function getQuartiers()
-    {
-        $query = "SELECT * FROM quartier";
-        $stmt = $this->connexion->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
-    // Méthode pour récupérer les données des tranches d'âge
-    public function getTranchesAge()
-    {
-        $query = "SELECT * FROM tranche_age";
-        $stmt = $this->connexion->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // Méthode pour récupérer les données des statuts
-    public function getStatuts()
-    {
-        $query = "SELECT * FROM statut";
-        $stmt = $this->connexion->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 }
