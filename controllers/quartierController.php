@@ -1,6 +1,6 @@
 <?php
 
-require_once '../models/MembreDB.php';
+require_once '../models/QuartierDB.php';
 
 // AJouter
 
@@ -11,12 +11,12 @@ if (isset($_POST["addM"])) {
         extract($_POST);
 
         // Créer une instance de la classe modèle Membre avec la connexion à la base de données
-        $membre = new MembreDB($connexion);
+        $membre = new QuartierDB($connexion);
 
         // Appeler la méthode pour créer un nouveau membre en utilisant les données du formulaire
-        if ($membre->addMembre($matricule, $nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)) {
+        if ($membre->addQuartier($libelle)) {
             // Rediriger vers une page de succès ou afficher un message de succès
-            header("Location: ../views/membres/index.php");
+            header("Location: ../views/quartiers/index.php");
             exit();
         }
     } catch (PDOException $e) {
@@ -27,16 +27,16 @@ if (isset($_POST["addM"])) {
 
 
 // Modifier
-if (isset($_POST["editMembre"])) {
+if (isset($_POST["editQuartier"])) {
     extract($_POST);
 
     // Créer une instance de la classe modèle Membre avec la connexion à la base de données
-    $membre = new MembreDB($connexion);
+    $membre = new QuartierDB($connexion);
 
     // Appeler la méthode pour mettre à jour les informations du membre en utilisant les données du formulaire
-    if ($membre->editMembre($id, $nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)) {
+    if ($membre->editQuertier($id, $libelle)) {
         // Rediriger vers une page de succès ou afficher un message de succès
-        header("Location: ../views/membres/index.php");
+        header("Location: ../views/quartiers/index.php");
         exit();
     } else {
         // Gérer les erreurs
@@ -45,18 +45,18 @@ if (isset($_POST["editMembre"])) {
 }
 // Vérifie si l'ID du membre à supprimer est défini dans l'URL
 if (isset($_GET['id'])) {
-    // Inclure le fichier de configuration de la base de données et la classe MembreDB
+    // Inclure le fichier de configuration de la base de données et la classe Quartier
 
-    // Instancier la classe MembreDB avec la connexion à la base de données
-    $membreDB = new MembreDB($connexion);
+    // Instancier la classe Quartier avec la connexion à la base de données
+    $Quartier = new QuartierDB($connexion);
 
     // Récupérer l'ID du membre à supprimer depuis l'URL
     $id = $_GET['id'];
 
     // Appeler la méthode de suppression du membre avec l'ID spécifié
-    if ($membreDB->deleteMembre($id)) {
+    if ($Quartier->deleteQuertier($id)) {
         // Rediriger vers la page principale avec un message de succès
-        header('Location: ../views/membres/index.php');
+        header('Location: ../views/quartiers/index.php');
         exit();
     } else {
         // Rediriger vers la page principale avec un message d'erreur

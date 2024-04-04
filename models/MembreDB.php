@@ -113,6 +113,43 @@ class MembreDB
             die("Erreur : une erreur s'est produite lors de l'ajout du membre. " . $e->getMessage());
         }
     }
+    public function editMembre($id, $nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)
+    {
+        try {
+            // Préparation de la requête SQL pour la mise à jour d'un membre
+            $query = "UPDATE " . $this->table_name . " 
+                  SET nom = :nom,
+                      prenom = :prenom,
+                      sexe = :sexe,
+                      situation_matrimoniale = :situation_matrimoniale,
+                      etat = :etat,
+                      idStatut = :idStatut,
+                      idQuartier = :idQuartier,
+                      idAge = :idAge
+                  WHERE id = :id";
+            $stmt = $this->connexion->prepare($query);
+
+            // Liaison des valeurs aux paramètres de la requête
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':sexe', $sexe);
+            $stmt->bindParam(':situation_matrimoniale', $situation_matrimoniale);
+            $stmt->bindParam(':etat', $etat);
+            $stmt->bindParam(':idStatut', $idStatut);
+            $stmt->bindParam(':idQuartier', $idQuartier);
+            $stmt->bindParam(':idAge', $idAge);
+            $stmt->bindParam(':id', $id);
+
+            // Exécution de la requête de mise à jour
+            $stmt->execute();
+
+            return true; // Succès de la mise à jour
+        } catch (PDOException $e) {
+            // Afficher un message d'erreur en cas d'échec de la mise à jour
+            die("Erreur : une erreur s'est produite lors de la mise à jour du membre. " . $e->getMessage());
+        }
+    }
+
 
     public function createMembre($matricule, $nom, $prenom, $tranche_age, $sexe, $situation_matrimoniale, $statut)
     {
