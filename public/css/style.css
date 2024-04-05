@@ -1,0 +1,5 @@
+.nav_bar{
+    display: grid;
+    grid-template-columns: 100em 100em 100em 100em;
+    
+}

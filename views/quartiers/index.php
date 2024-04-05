@@ -24,57 +24,11 @@ $agent_prenom = $_SESSION["prenom"]; ?>
 </head>
 
 <body>
-    <header>
+   
+        <?php
+    require_once "../nav_bar.php";
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <!-- Logo ou titre de votre site -->
-                <a class="navbar-brand" href="#">Logo</a>
-
-                <!-- Contenu de la barre de recherche -->
-                <!-- <form class="form-inline my-2 my-lg-0 mr-auto">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher..." aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
-                </form> -->
-                <a href=""></a>
-                <!-- Profil utilisateur -->
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user"></i>
-                            <?php echo $agent_nom; ?>
-                            <?php echo $agent_prenom; ?>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="views/agents/index.php">Mon profil</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="./views/agents/logout.php">Déconnexion</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <!-- Button to Open Modal -->
-
-
-
-    <!-- <li class=" nav-item">
-        <a class="nav-link" href="index.php?filter=chef_de_quartier">
-            <i class="fas fa-user-tie"></i> Filtrer par Chef de quartier
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="index.php?filter=quartier_civile">
-            <i class="fas fa-users"></i> Filtrer par quartiers Civiles
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="index.php?filter=badian_gokh">
-            <i class="fas fa-landmark"></i> Filtrer par Badian Gokh
-        </a>
-    </li> -->
+    ?>
 
     <div class="container mt-5">
         <!--formulaire  Ajouter un quartier -->

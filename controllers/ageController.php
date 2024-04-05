@@ -8,6 +8,9 @@ require_once '../models/TranchAgeDB.php';
 if (isset($_POST["addAge"])) {
     try {
         // Extraire les données du formulaire
+        // $nom= $_POST['nom'];
+        // $prenom= $_POST['prenom'];
+        
         extract($_POST);
 
         // Créer une instance de la classe modèle tra$tranch avec la connexion à la base de données

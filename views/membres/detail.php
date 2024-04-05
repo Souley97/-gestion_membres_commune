@@ -9,6 +9,11 @@
 </head>
 
 <body>
+
+    <?php
+    require_once "../nav_bar.php";
+
+    ?>
     <div class="container">
         <h1>Détails du Membre</h1>
         <?php

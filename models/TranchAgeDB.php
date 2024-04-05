@@ -66,9 +66,9 @@ class TranchAgeDB
         try {
             // Préparation de la requête SQL pour la mise à jour d'un TranchAge
             $query = "UPDATE " . $this->table_name . " 
-                  SET libelle = :libelle
-                  SET age_min = :age_min
-                  SET age_max = :age_max
+                  SET libelle = :libelle,
+                    age_min = :age_min,
+                    age_max = :age_max
                       
                   WHERE id = :id";
             $stmt = $this->connexion->prepare($query);

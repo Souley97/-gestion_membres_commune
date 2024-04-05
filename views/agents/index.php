@@ -9,6 +9,11 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
+
+    <?php
+    require_once "../nav_bar.php";
+
+    ?>
 <body>
     <div class="container mt-5">
         <div class="row">
