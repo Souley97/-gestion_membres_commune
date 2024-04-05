@@ -1,5 +1,4 @@
 <?php
-include './models/DB.php';
 
 
 session_start(); // Vérifier si l'agent est connecté 
@@ -36,7 +35,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                     <input class="form-control mr-sm-2" type="search" placeholder="Rechercher..." aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
                 </form> -->
-                <a href="../status/index.php">status</a>
+
                 <!-- Profil utilisateur -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
@@ -101,67 +100,29 @@ $agent_prenom = $_SESSION["prenom"]; ?>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Matricule</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prénom</th>
-                    <th scope="col">Sexe</th>
-                    <th scope="col">Situation Matrimoniale</th>
-                    <th scope="col">Etat</th>
-                    <th scope="col">Quartier</th>
-                    <th scope="col">Tranche d'âge</th>
-                    <th scope="col">Statut</th>
-                    <th scope="col">Date d'enregistrement</th>
+                    
+                    <th scope="col">libelle</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                require_once '../../models/MembreDB.php';
-                $results = new MembreDB($connexion);
+                require_once '../../models/StatusDB.php';
+                $results = new StatusDB($connexion);
                 // $membres = $results->membresCivile();
-                $membres = $results->readAllMembres();
+
+                    $membres = $results->readStatut();
 
                 foreach ($membres as $membre): ?>
                     <tr>
+                        
                         <td>
-                            <?= $membre['id'] ?>
+                            <?= $membre['libelle'] ?>
                         </td>
-                        <td>
-                            <?= $membre['matricule'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['nom'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['prenom'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['sexe'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['situation_matrimoniale'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['etat'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['quartier'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['tranche_age'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['statut'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['date_enregistrement'] ?>
-                        </td>
+                    
                         <td>
                             <!-- Bouton de modification -->
                             <a href="update.php?id=<?= $membre['id'] ?>" class="btn btn-primary btn-sm mr-2">
-                                <i class="fas fa-edit"></i> Modifier
-                            </a><a href="detail.php?id=<?= $membre['id'] ?>" class="btn btn-primary btn-sm mr-2">
                                 <i class="fas fa-edit"></i> Modifier
                             </a>
                             <!-- Bouton de suppression -->
