@@ -11,10 +11,12 @@
             </div>
             <div class="modal-body">
                 <form action="../../controllers/membreController.php" method="POST">
-                    <div class="form-group">
+                    <!-- 
+                        <div class="form-group">
                         <label for="matricule">matricule :</label>
-                        <input type="text" class="form-control" id="matricule" name="matricule" required>
-                    </div>
+                        <input type="hidden" class="form-control" id="matricule" name="matricule" required>
+                    </div> 
+                -->
                     <div class="form-group">
                         <label for="nom">Nom :</label>
                         <input type="text" class="form-control" id="nom" name="nom" required>

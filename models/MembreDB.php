@@ -85,16 +85,15 @@ class MembreDB
     // Méthode de la classe utilisant les fonctionnalités des traits
 
     // public function addMembre($nom, $prenom, $lastMatricule)
-    public function addMembre($matricule, $nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)
+    public function addMembre($nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)
     {
         try {
             // Préparation de la requête SQL pour l'insertion d'un membre
-            $query = "INSERT INTO " . $this->table_name . " (matricule, nom, prenom, sexe, situation_matrimoniale, etat,idStatut, idQuartier, idAge  ) 
-                          VALUES (:matricule, :nom, :prenom, :sexe, :situation_matrimoniale, :etat, :idStatut, :idQuartier, :idAge)";
+            $query = "INSERT INTO " . $this->table_name . " (nom, prenom, sexe, situation_matrimoniale, etat, idStatut, idQuartier, idAge) 
+                        VALUES (:nom, :prenom, :sexe, :situation_matrimoniale, :etat, :idStatut, :idQuartier, :idAge)";
             $stmt = $this->connexion->prepare($query);
 
             // Liaison des valeurs aux paramètres de la requête
-            $stmt->bindParam(':matricule', $matricule);
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':prenom', $prenom);
             $stmt->bindParam(':sexe', $sexe);
@@ -107,12 +106,26 @@ class MembreDB
             // Exécution de la requête d'insertion
             $stmt->execute();
 
+            // Récupérer l'ID auto-incrémenté généré
+            $id = $this->connexion->lastInsertId();
+
+            // Générer le matricule
+            $matricule = "PO_" . str_pad($id, 3, '0', STR_PAD_LEFT);
+
+            // Mettre à jour le membre avec le matricule généré
+            $query = "UPDATE " . $this->table_name . " SET matricule = :matricule WHERE id = :id";
+            $stmt = $this->connexion->prepare($query);
+            $stmt->bindParam(':matricule', $matricule);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
             return true; // Succès de l'insertion
         } catch (PDOException $e) {
             // Afficher un message d'erreur en cas d'échec de l'ajout du membre
             die("Erreur : une erreur s'est produite lors de l'ajout du membre. " . $e->getMessage());
         }
     }
+
     public function editMembre($id, $nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)
     {
         try {
@@ -151,28 +164,6 @@ class MembreDB
     }
 
 
-    public function createMembre($matricule, $nom, $prenom, $tranche_age, $sexe, $situation_matrimoniale, $statut)
-    {
-
-        try {
-            $query = "INSERT INTO " . $this->table_name . " (matricule, nom, prenom, tranche_age, sexe, situation_matrimoniale, statut) VALUES (:matricule, :nom, :prenom, :tranche_age, :sexe, :situation_matrimoniale, :statut)";
-            $stmt = $this->connexion->prepare($query);
-
-            $stmt->bindParam(':matricule', $matricule);
-            $stmt->bindParam(':nom', $nom);
-            $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':tranche_age', $tranche_age);
-            $stmt->bindParam(':sexe', $sexe);
-            $stmt->bindParam(':situation_matrimoniale', $situation_matrimoniale);
-            $stmt->bindParam(':statut', $statut);
-
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            // Gérer les erreurs
-            return false;
-        }
-    }
 
     public function updateMembre($id, $matricule, $nom, $prenom, $tranche_age, $sexe, $situation_matrimoniale, $statut)
     {

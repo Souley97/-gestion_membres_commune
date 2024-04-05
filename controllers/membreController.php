@@ -14,7 +14,7 @@ if (isset($_POST["addM"])) {
         $membre = new MembreDB($connexion);
 
         // Appeler la méthode pour créer un nouveau membre en utilisant les données du formulaire
-        if ($membre->addMembre($matricule, $nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)) {
+        if ($membre->addMembre($nom, $prenom, $sexe, $situation_matrimoniale, $etat, $idStatut, $idQuartier, $idAge)) {
             // Rediriger vers une page de succès ou afficher un message de succès
             header("Location: ../views/membres/index.php");
             exit();
