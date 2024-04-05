@@ -65,8 +65,8 @@ $agent_prenom = $_SESSION["prenom"]; ?>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="index.php?filter=membre_civile">
-            <i class="fas fa-users"></i> Filtrer par Membres Civiles
+        <a class="nav-link" href="index.php?filter=status_civile">
+            <i class="fas fa-users"></i> Filtrer par statuss Civiles
         </a>
     </li>
     <li class="nav-item">
@@ -76,7 +76,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
     </li> -->
 
     <div class="container mt-5">
-        <!--formulaire  Ajouter un membre -->
+        <!--formulaire  Ajouter un status -->
         <?php
         require_once 'create.php';
         ?>
@@ -86,11 +86,11 @@ $agent_prenom = $_SESSION["prenom"]; ?>
     </div>
 
     <div class="container">
-        <h1 class="mt-5">Liste des membres de la commune</h1>
+        <h1 class="mt-5">Liste des statuss de la commune</h1>
         <!-- Ajout d'un bouton d'ajout stylisé avec Bootstrap -->
         <div class="mb-3">
-            <button type="button" class="btn btn-primary mr-8" data-toggle="modal" data-target="#ajouterMembreModal">
-                Ajouter un membre
+            <button type="button" class="btn btn-primary mr-8" data-toggle="modal" data-target="#ajouterStatusModal">
+                Ajouter un status
             </button>
             <button type="button" class="btn btn-primary left" data-toggle="modal" data-target="#myModal">
                 Civiles
@@ -109,26 +109,26 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                 <?php
                 require_once '../../models/StatusDB.php';
                 $results = new StatusDB($connexion);
-                // $membres = $results->membresCivile();
+                // $statuss = $results->membresCivile();
 
-                    $membres = $results->readStatut();
+                    $statuss = $results->readStatus();
 
-                foreach ($membres as $membre): ?>
+                foreach ($statuss as $status): ?>
                     <tr>
                         
                         <td>
-                            <?= $membre['libelle'] ?>
+                            <?= $status['libelle'] ?>
                         </td>
                     
                         <td>
                             <!-- Bouton de modification -->
-                            <a href="update.php?id=<?= $membre['id'] ?>" class="btn btn-primary btn-sm mr-2">
+                            <a href="update.php?id=<?= $status['id'] ?>" class="btn btn-primary btn-sm mr-2">
                                 <i class="fas fa-edit"></i> Modifier
                             </a>
                             <!-- Bouton de suppression -->
-                            <a href="../../controllers/membreController.php?id=<?= $membre['id'] ?>"
+                            <a href="../../controllers/statutController.php?id=<?= $status['id'] ?>"
                                 class="btn btn-danger btn-sm"
-                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce membre ?')">
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce status ?')">
                                 <i class="fas fa-trash-alt"></i> Supprimer
                             </a>
                         </td>

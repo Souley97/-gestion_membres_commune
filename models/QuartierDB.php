@@ -42,7 +42,7 @@ class QuartierDB
     public function addQuartier($libelle)
     {
         try {
-            // Préparation de la requête SQL pour l'insertion d'un quertier
+            // Préparation de la requête SQL pour l'insertion d'un quartier
             $query = "INSERT INTO " . $this->table_name . " (libelle  ) 
                           VALUES (:libelle)";
             $stmt = $this->connexion->prepare($query);
@@ -56,14 +56,14 @@ class QuartierDB
 
             return true; // Succès de l'insertion
         } catch (PDOException $e) {
-            // Afficher un message d'erreur en cas d'échec de l'ajout du quertier
+            // Afficher un message d'erreur en cas d'échec de l'ajout du quartier
             die("Erreur : une erreur s'est produite lors de l'ajout du quartier. " . $e->getMessage());
         }
     }
-    public function editQuertier($id, $libelle)
+    public function editQuartier($id, $libelle)
     {
         try {
-            // Préparation de la requête SQL pour la mise à jour d'un quertier
+            // Préparation de la requête SQL pour la mise à jour d'un quartier
             $query = "UPDATE " . $this->table_name . " 
                   SET libelle = :libelle
                       
@@ -81,29 +81,29 @@ class QuartierDB
             return true; // Succès de la mise à jour
         } catch (PDOException $e) {
             // Afficher un message d'erreur en cas d'échec de la mise à jour
-            die("Erreur : une erreur s'est produite lors de la mise à jour du quertier. " . $e->getMessage());
+            die("Erreur : une erreur s'est produite lors de la mise à jour du quartier. " . $e->getMessage());
         }
     }
 
 
-    // Méthode pour récupérer les informations d'un quertier par son ID
+    // Méthode pour récupérer les informations d'un quartier par son ID
     public function getQuartierById($id)
     {
         try {
             $query = "SELECT * FROM ". $this->table_name . " WHERE id = ?";
             $stmt = $this->connexion->prepare($query);
             $stmt->execute([$id]);
-            $quertier = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $quertier;
+            $quartier = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $quartier;
         } catch (PDOException $e) {
             // Gérer les erreurs
-            die("Erreur lors de la récupération des informations du quertier: " . $e->getMessage());
+            die("Erreur lors de la récupération des informations du quartier: " . $e->getMessage());
         }
     }
-    public function deleteQuertier($id)
+    public function deleteQuartier($id)
     {
         try {
-            // Requête SQL pour supprimer le quertier avec l'ID spécifié
+            // Requête SQL pour supprimer le quartier avec l'ID spécifié
             $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
 
             // Préparation de la requête
@@ -122,7 +122,7 @@ class QuartierDB
             }
         } catch (PDOException $e) {
             // Gérer les erreurs de base de données
-            echo "Erreur lors de la suppression du quertier: " . $e->getMessage();
+            echo "Erreur lors de la suppression du quartier: " . $e->getMessage();
             return false;
         }
     }

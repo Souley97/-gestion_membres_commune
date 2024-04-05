@@ -21,7 +21,7 @@ class StatusDB
     public $tranche_age;
     public $sexe;
     public $situation_matrimoniale;
-    public $statut;
+    public $status;
     public $date_enregistrement;
 
     public function __construct($connexion)
@@ -33,7 +33,7 @@ class StatusDB
 
     // Méthode pour afficher les membres dans une vue
 
-    public function readStatut()
+    public function readStatus()
      {
          try {
              $query = "SELECT * FROM statut";
@@ -69,5 +69,84 @@ class StatusDB
 
        
  }
+
+    
+ public function editStatus($id, $libelle)
+ {
+     try {
+         // Préparation de la requête SQL pour la mise à jour d'un quartier
+         $query = "UPDATE " . $this->table_name . " 
+               SET libelle = :libelle
+                   
+               WHERE id = :id";
+         $stmt = $this->connexion->prepare($query);
+
+         // Liaison des valeurs aux paramètres de la requête
+         $stmt->bindParam(':libelle', $libelle);
+       
+         $stmt->bindParam(':id', $id);
+
+         // Exécution de la requête de mise à jour
+         $stmt->execute();
+
+         return true; // Succès de la mise à jour
+     } catch (PDOException $e) {
+         // Afficher un message d'erreur en cas d'échec de la mise à jour
+         die("Erreur : une erreur s'est produite lors de la mise à jour du quartier. " . $e->getMessage());
+     }
  }
+
+
+ // Méthode pour récupérer les informations d'un quartier par son ID
+ public function getStatusById($id)
+ {
+     try {
+         $query = "SELECT * FROM ". $this->table_name . " WHERE id = ?";
+         $stmt = $this->connexion->prepare($query);
+         $stmt->execute([$id]);
+         $status = $stmt->fetch(PDO::FETCH_ASSOC);
+         return $status;
+     } catch (PDOException $e) {
+         // Gérer les erreurs
+         die("Erreur lors de la récupération des informations du status: " . $e->getMessage());
+     }
+ }
+ public function deleteStatus($id)
+ {
+     try {
+         // Requête SQL pour supprimer le quartier avec l'ID spécifié
+         $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+
+         // Préparation de la requête
+         $stmt = $this->connexion->prepare($query);
+
+         // Liaison de la valeur de l'ID avec le paramètre de la requête
+         $stmt->bindParam('id', $id);
+
+         // Exécution de la requête
+         if ($stmt->execute()) {
+             // La suppression a réussi
+             return true;
+         } else {
+             // La suppression a échoué
+             return false;
+         }
+     } catch (PDOException $e) {
+         // Gérer les erreurs de base de données
+         echo "Erreur lors de la suppression du status: " . $e->getMessage();
+         return false;
+     }
+ }
+
+}
+
+
+
+ 
+
+    
+
+
 ?>
+
+

@@ -34,7 +34,7 @@ if (isset($_POST["editQuartier"])) {
     $membre = new QuartierDB($connexion);
 
     // Appeler la méthode pour mettre à jour les informations du membre en utilisant les données du formulaire
-    if ($membre->editQuertier($id, $libelle)) {
+    if ($membre->editQuartier($id, $libelle)) {
         // Rediriger vers une page de succès ou afficher un message de succès
         header("Location: ../views/quartiers/index.php");
         exit();
@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Appeler la méthode de suppression du membre avec l'ID spécifié
-    if ($Quartier->deleteQuertier($id)) {
+    if ($Quartier->deleteQuartier($id)) {
         // Rediriger vers la page principale avec un message de succès
         header('Location: ../views/quartiers/index.php');
         exit();
