@@ -36,8 +36,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                     <input class="form-control mr-sm-2" type="search" placeholder="Rechercher..." aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
                 </form> -->
-                <a href="../quartiers/index.php">Quartier</a>
-                <a href="../tranches/index.php">Tranche age</a>
+                <a href=""></a>
                 <!-- Profil utilisateur -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
@@ -60,25 +59,8 @@ $agent_prenom = $_SESSION["prenom"]; ?>
     <!-- Button to Open Modal -->
 
 
-
-    <!-- <li class=" nav-item">
-        <a class="nav-link" href="index.php?filter=chef_de_quartier">
-            <i class="fas fa-user-tie"></i> Filtrer par Chef de quartier
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="index.php?filter=membre_civile">
-            <i class="fas fa-users"></i> Filtrer par Membres Civiles
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="index.php?filter=badian_gokh">
-            <i class="fas fa-landmark"></i> Filtrer par Badian Gokh
-        </a>
-    </li> -->
-
     <div class="container mt-5">
-        <!--formulaire  Ajouter un membre -->
+        <!--formulaire  Ajouter un tranche -->
         <?php
         require_once 'create.php';
         ?>
@@ -88,11 +70,11 @@ $agent_prenom = $_SESSION["prenom"]; ?>
     </div>
 
     <div class="container">
-        <h1 class="mt-5">Liste des membres de la commune</h1>
+        <h1 class="mt-5">Liste des tranches de la commune</h1>
         <!-- Ajout d'un bouton d'ajout stylisé avec Bootstrap -->
         <div class="mb-3">
-            <button type="button" class="btn btn-primary mr-8" data-toggle="modal" data-target="#ajouterMembreModal">
-                Ajouter un membre
+            <button type="button" class="btn btn-primary mr-8" data-toggle="modal" data-target="#ajouterTrancheModal">
+                Ajouter un tranche
             </button>
             <button type="button" class="btn btn-primary left" data-toggle="modal" data-target="#myModal">
                 Civiles
@@ -104,56 +86,41 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                 <tr>
 
                     <th scope="col">Nom</th>
-                    <th scope="col">Prénom</th>
-                    <th scope="col">Sexe</th>
-                    <th scope="col">Situation Matrimoniale</th>
-
-                    <th scope="col">Tranche d'âge</th>
-                    <th scope="col">Statut</th>
+                    <th scope="col">Age min</th>
+                    <th scope="col">Age max</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                require_once '../../models/MembreDB.php';
-                $results = new MembreDB($connexion);
-                // $membres = $results->membresCivile();
-                $membres = $results->readAllMembres();
+                require_once '../../models/TranchAgeDB.php';
+                $results = new TranchAgeDB($connexion);
+                // $tranches = $results->tranchesCivile();
+                $tranches = $results->readTranchAges();
 
-                foreach ($membres as $membre): ?>
+                foreach ($tranches as $tranche): ?>
                     <tr>
 
                         <td>
-                            <?= $membre['nom'] ?>
+                            <?= $tranche['libelle'] ?>
                         </td>
                         <td>
-                            <?= $membre['prenom'] ?>
+                            <?= $tranche['age_min'] ?>
                         </td>
                         <td>
-                            <?= $membre['sexe'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['situation_matrimoniale'] ?>
+                            <?= $tranche['age_max'] ?>
                         </td>
 
-                        <td>
-                            <?= $membre['tranche_age'] ?>
-                        </td>
-                        <td>
-                            <?= $membre['statut'] ?>
-                        </td>
 
                         <td>
                             <!-- Bouton de modification -->
-                            <a href="update.php?id=<?= $membre['id'] ?>" class="btn btn-primary btn-sm mr-2">
+                            <a href="update.php?id=<?= $tranche['id'] ?>" class="btn btn-primary btn-sm mr-2">
                                 <i class="fas fa-edit"></i> Modifier
-                            </a><a href="detail.php?id=<?= $membre['id'] ?>" class="btn btn-primary btn-sm mr-2">
-                                <i class="fas fa-edit"></i> Detais
                             </a>
                             <!-- Bouton de suppression -->
-                            <a href="../../controllers/membreController.php?id=<?= $membre['id'] ?>"
+                            <a href="../../controllers/ageController.php?id=<?= $tranche['id'] ?>"
                                 class="btn btn-danger btn-sm"
-                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce membre ?')">
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tranche ?')">
                                 <i class="fas fa-trash-alt"></i> Supprimer
                             </a>
                         </td>
