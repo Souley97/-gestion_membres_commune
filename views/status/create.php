@@ -17,7 +17,7 @@
                         <input type="text" class="form-control" id="nom" name="libelle" required>
                     </div>
                     
-            </div>
+            
 
                     
                                
@@ -25,6 +25,7 @@
                     <button type="submit" name="addStatus" class="btn btn-primary">Ajouter</button>
                 </form>
             </div>
+            </div>
         </div>
     </div>
-</div>
+</div>      

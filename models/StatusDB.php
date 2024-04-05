@@ -57,6 +57,7 @@ class StatusDB
             $stmt->bindparam(":libelle",$libelle);
 
             $stmt->execute();
+            return true;
 
 
     }

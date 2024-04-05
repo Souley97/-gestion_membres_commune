@@ -24,3 +24,4 @@ if (isset($_POST["addStatus"])) {
         die("Erreur : une erreur s'est produite lors de l'ajout du membre. " . $e->getMessage());
     }
 }
+

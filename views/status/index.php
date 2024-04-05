@@ -126,7 +126,7 @@ $agent_prenom = $_SESSION["prenom"]; ?>
                                 <i class="fas fa-edit"></i> Modifier
                             </a>
                             <!-- Bouton de suppression -->
-                            <a href="./controllers/membreController.php?id=<?= $membre['id'] ?>"
+                            <a href="../../controllers/membreController.php?id=<?= $membre['id'] ?>"
                                 class="btn btn-danger btn-sm"
                                 onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce membre ?')">
                                 <i class="fas fa-trash-alt"></i> Supprimer
